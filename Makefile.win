@@ -1,0 +1,39 @@
+# Project: Editor
+# Makefile created by Dev-C++ 4.9.9.2
+
+CPP  = g++.exe -D__DEBUG__
+CC   = gcc.exe -D__DEBUG__
+WINDRES = windres.exe
+RES  = obj/editor_private.res
+OBJ  = obj/Editor.o obj/DLG_adjust_matrix.o obj/Trans_3D.o $(RES)
+LINKOBJ  = obj/Editor.o obj/DLG_adjust_matrix.o obj/Trans_3D.o $(RES)
+LIBS =  -L"lib" ../../lib/libaldmd.a ../../lib/libagl.a ../../lib/liballeg.a ../../lib/libuser32.a ../../lib/libgdi32.a ../../lib/libopengl32.a ../../lib/libglu32.a ../../lib/libglaux.a ../../lib/libstdc++.a -mwindows ../../lib/libagl.a ../../lib/liballeg.a ../../lib/libuser32.a ../../lib/libgdi32.a ../../lib/libopengl32.a ../../lib/libglu32.a   ../../lib/libstdc++.a  -g3 
+INCS =  -I"include" 
+CXXINCS =  -I"lib/gcc/mingw32/3.4.2/include"  -I"include/c++/3.4.2/backward"  -I"include/c++/3.4.2/mingw32"  -I"include/c++/3.4.2"  -I"include" 
+BIN  = editor.exe
+CXXFLAGS = $(CXXINCS)   -g3
+CFLAGS = $(INCS)   -g3
+RM = rm -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before editor.exe all-after
+
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CC) $(LINKOBJ) -o "editor.exe" $(LIBS)
+
+obj/Editor.o: Editor.c
+	$(CPP) -c Editor.c -o obj/Editor.o $(CXXFLAGS)
+
+obj/DLG_adjust_matrix.o: DLG_adjust_matrix.c
+	$(CPP) -c DLG_adjust_matrix.c -o obj/DLG_adjust_matrix.o $(CXXFLAGS)
+
+obj/Trans_3D.o: Trans_3D.cpp
+	$(CPP) -c Trans_3D.cpp -o obj/Trans_3D.o $(CXXFLAGS)
+
+obj/editor_private.res: editor_private.rc 
+	$(WINDRES) -i editor_private.rc --input-format=rc -o obj/editor_private.res -O coff 
